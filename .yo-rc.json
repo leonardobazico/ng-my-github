@@ -1,0 +1,9 @@
+{
+  "generator-angm": {
+    "appName": "ng-my-github",
+    "angularCookies": false,
+    "angularAnimate": false,
+    "angularSanitize": false,
+    "angularMaterial": true
+  }
+}
