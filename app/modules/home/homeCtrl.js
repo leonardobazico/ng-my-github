@@ -23,10 +23,10 @@
 
 	function Home(homeService) {
 	  /*jshint validthis: true */
-	  var vm = this;
-	  vm.title = "Hello, ng-my-github!";
-	  vm.version = "1.0.0";
-	  vm.listFeatures = homeService.getFeaturesList();
+	  var home = this;
+	  home.title = "Hello, ng-my-github!";
+	  home.version = "1.0.0";
+	  home.listFeatures = homeService.getFeaturesList();
 	}
 
 })();

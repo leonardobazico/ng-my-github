@@ -17,7 +17,7 @@ angular.module('ng-my-github')
 		    abstract: true,
 		    templateUrl: 'app/modules/home/home.html',
 		    controller: 'HomeCtrl',
-		    controllerAs: 'vm'
+		    controllerAs: 'home'
 	  	})
 	  	.state('home.dashboard', {
 		    url:'/dashboard',
