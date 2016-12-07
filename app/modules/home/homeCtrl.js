@@ -24,9 +24,6 @@
 	function Home(homeService) {
 	  /*jshint validthis: true */
 	  var home = this;
-	  home.title = "Hello, ng-my-github!";
-	  home.version = "1.0.0";
-	  home.listFeatures = homeService.getFeaturesList();
 	}
 
 })();
