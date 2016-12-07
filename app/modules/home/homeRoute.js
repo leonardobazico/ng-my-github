@@ -1,6 +1,6 @@
 'use strict';
 
-	/**
+  /**
    * @ngdoc function
    * @name app.route:HomeRoute
    * @description
@@ -9,19 +9,19 @@
    */
 
 angular.module('ng-my-github')
-	.config(['$stateProvider', function ($stateProvider) {
-	  $stateProvider
+  .config(['$stateProvider', function ($stateProvider) {
+    $stateProvider
 
-	  	.state('home', {
-		    url: '',
-		    abstract: true,
-		    templateUrl: 'app/modules/home/home.html',
-		    controller: 'HomeCtrl',
-		    controllerAs: 'home'
-	  	})
-	  	.state('home.dashboard', {
-		    url:'/dashboard',
-		    templateUrl: 'app/modules/home/dashboard.html'
-	  	});
+      .state('home', {
+        url: '',
+        abstract: true,
+        templateUrl: 'app/modules/home/home.html',
+        controller: 'HomeCtrl',
+        controllerAs: 'home'
+      })
+      .state('home.dashboard', {
+        url:'/dashboard',
+        templateUrl: 'app/modules/home/dashboard.html'
+      });
 
-	}]);
+  }]);
