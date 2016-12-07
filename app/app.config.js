@@ -25,8 +25,7 @@
 	  $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 	  $urlRouterProvider
-	  	.otherwise('/dashboard');
-
+	  	.otherwise('/repos');
 	}
 
 	runBlock.$inject = ['$rootScope'];
@@ -36,6 +35,4 @@
 
 	  console.log('AngularJS run() function...');
 	}
-
-
 })();

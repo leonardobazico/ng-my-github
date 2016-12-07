@@ -19,9 +19,9 @@ angular.module('ng-my-github')
         controller: 'HomeCtrl',
         controllerAs: 'home'
       })
-      .state('home.dashboard', {
-        url:'/dashboard',
-        templateUrl: 'app/modules/home/dashboard.html'
+      .state('home.repos', {
+        url:'/repos',
+        templateUrl: 'app/modules/home/repos.html'
       });
 
   }]);

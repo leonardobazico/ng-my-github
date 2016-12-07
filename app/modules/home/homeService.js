@@ -16,6 +16,9 @@
 
 	function homeService($http) {
 
+		return {
+
+		};
 	}
 
 })();
