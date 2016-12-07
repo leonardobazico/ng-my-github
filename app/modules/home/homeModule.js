@@ -1,7 +1,7 @@
 (function() {
-	'use strict';
+  'use strict';
 
-	/**
+  /**
    * @ngdoc function
    * @name app.module:homeModule
    * @description
@@ -9,5 +9,5 @@
    * Module of the app
    */
 
-	angular.module('home', []);
+  angular.module('home', []);
 })();

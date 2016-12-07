@@ -1,38 +1,38 @@
 (function () {
-	'use strict';
+  'use strict';
 
-	/**
-	 * @ngdoc configuration file
-	 * @name app.config:config
-	 * @description
-	 * # Config and run block
-	 * Configutation of the app
-	 */
+  /**
+   * @ngdoc configuration file
+   * @name app.config:config
+   * @description
+   * # Config and run block
+   * Configutation of the app
+   */
 
 
-	angular
+  angular
     .module('ng-my-github')
     .config(configure)
     .run(runBlock);
 
-	configure.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider'];
+  configure.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider'];
 
-	function configure($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+  function configure($stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
-	  $locationProvider.hashPrefix('!');
+    $locationProvider.hashPrefix('!');
 
-	  // This is required for Browser Sync to work poperly
-	  $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    // This is required for Browser Sync to work poperly
+    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-	  $urlRouterProvider
-	  	.otherwise('/repos');
-	}
+    $urlRouterProvider
+      .otherwise('/repos');
+  }
 
-	runBlock.$inject = ['$rootScope'];
+  runBlock.$inject = ['$rootScope'];
 
-	function runBlock($rootScope) {
-	  'use strict';
+  function runBlock($rootScope) {
+    'use strict';
 
-	  console.log('AngularJS run() function...');
-	}
+    console.log('AngularJS run() function...');
+  }
 })();
