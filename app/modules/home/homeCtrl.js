@@ -25,6 +25,24 @@
     /*jshint validthis: true */
     var home = this;
     home.search = { name: '' };
+    home.loading = true;
+    home.repos = [];
+
+    getRepos();
+
+    function getRepos() {
+      home.loading = true;
+      homeService
+        .getUserRepos()
+        .then(function onSuccess(res) {
+          home.repos = res.data || [];
+
+          home.loading = false;
+        }, function onError(res) {
+          console.log('onError', res);
+          home.loading = false;
+        });
+    }
   }
 
 })();
