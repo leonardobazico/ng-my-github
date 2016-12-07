@@ -1,7 +1,7 @@
 (function () {
-	'use strict';
+  'use strict';
 
-	/**
+  /**
    * @ngdoc function
    * @name app.controller:HomeCtrl
    * @description
@@ -9,21 +9,22 @@
    * Controller of the app
    */
 
-	angular
+  angular
     .module('ng-my-github')
     .controller('HomeCtrl', Home);
 
-	Home.$inject = ['homeService'];
+  Home.$inject = ['homeService'];
 
-	/*
+  /*
    * recommend
    * Using function declarations
    * and bindable members up top.
    */
 
-	function Home(homeService) {
-	  /*jshint validthis: true */
-	  var home = this;
-	}
+  function Home(homeService) {
+    /*jshint validthis: true */
+    var home = this;
+    home.search = { name: '' };
+  }
 
 })();
