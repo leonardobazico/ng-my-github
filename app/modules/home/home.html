@@ -1,13 +1,14 @@
 <div layout="column" class="relative" layout-fill role="main" ng-cloak>
-  <md-toolbar class="md-hue-1">
-    <div class="md-toolbar-tools">
-      <md-input-container md-theme="input" flex>
-        <label>&nbsp;</label>
-        <input   ng-model="home.search.name"
-                ng-model-options="{ debounce: 400 }"
-                placeholder="Pesquise um repositório" />
-      </md-input-container>
-    </div>
+  <md-toolbar class="md-toolbar-tools">
+    <md-autocomplete
+      flex
+      ng-disabled="home.isDisabled"
+      md-no-cache="home.noCache"
+      md-search-text="home.search.name"
+      md-items="item in []"
+      md-min-length="0"
+      placeholder="Pesquise um repositório">
+    </md-autocomplete>
   </md-toolbar>
   <md-content layout="column" flex md-scroll-y style="background-color:#DCDCDC">
     <div ui-view></div>
