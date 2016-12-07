@@ -27,6 +27,7 @@
     home.search = { name: '' };
     home.loading = true;
     home.repos = [];
+    home.getUser = homeService.getUser;
 
     getRepos();
 

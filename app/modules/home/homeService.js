@@ -18,7 +18,8 @@
     var gitApiUrl = 'https://api.github.com';
 
     return {
-      getUserRepos: getUserRepos
+      getUserRepos: getUserRepos,
+      getUser: getUser
     };
 
     function getUserRepos() {

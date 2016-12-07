@@ -1,5 +1,6 @@
 <div flex layout-sm="column">
-  <md-card class="text-center">
+  <p layout="row" layout-align="center">Lista de repositórios do usuário: {{ home.getUser() }}</p>
+  <md-card>
     <md-card-content>
       <md-list flex>
         <div layout="row" layout-align="center" ng-if="home.loading">
