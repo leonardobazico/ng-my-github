@@ -12,11 +12,14 @@
 	    		<div class="md-list-item-text" layout="column">
 	    			<h3>{{ repo.name }}</h3>
 	    			<h4>{{ repo.owner.login }}</h4>
-	    			<span class="item-metadata">
-	    				<span class="item-metastat">
-	    					<strong>{{ repo.stargazers_count }}</strong> stars
+	    			<span>
+	    				<span>
+	    					<strong>{{ repo.language || 'Indefinido' }}</strong> |
 	    				</span>
-	    				<span class="item-metastat">
+	    				<span>
+	    					<strong>{{ repo.stargazers_count }}</strong> stars |
+	    				</span>
+	    				<span>
 	    					<strong>{{ repo.forks_count }}</strong> forks
 	    				</span>
 	    			</span>
