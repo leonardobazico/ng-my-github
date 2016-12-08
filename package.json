@@ -9,8 +9,12 @@
   },
   "scripts": {
     "start": "grunt",
+    "build": "grunt build",
     "test": "karma start karma.conf.js",
-    "postinstall": "bower install --config.interactive=false"
+    "postinstall": "bower install --config.interactive=false",
+    "surge": "cp ./www/index.html ./www/200.html && surge ./www --domain leonardobazico-github.surge.sh",
+    "dist": "npm run build",
+    "dist:surge": "npm run dist && npm run surge"
   },
   "dependencies": {
     "bower": "~1.3.8",
@@ -33,7 +37,7 @@
     "grunt-contrib-uglify": "~0.2.4",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-exec": "^0.4.6",
-    "grunt-injector": "^0.5.4",
+    "grunt-injector": "^1.1.0",
     "karma": "~0.12.0",
     "karma-chrome-launcher": "~0.1.2",
     "karma-coverage": "~0.2.0",
