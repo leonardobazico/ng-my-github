@@ -223,9 +223,12 @@ module.exports = function (grunt) {
     'uglify',
     'clean:nomin',
     'clean:libs',
-    'injector:production',
-    'concurrent',
-    // 'clean'
+    'injector:production'
+  ]);
+
+  grunt.registerTask('build:serve', [
+    'build',
+    'concurrent'
   ]);
 
   // Development task(s).
