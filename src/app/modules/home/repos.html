@@ -14,13 +14,13 @@
       <md-card-header ng-if="home.userProfile.data">
         <md-card-avatar>
           <img
-            ng-src="{{ home.userProfile.data.avatar_url }}"
+            ng-src="{{ ::home.userProfile.data.avatar_url }}"
             class="md-card-image"
-            alt="{{ home.userProfile.data.name }}" />
+            alt="{{ ::home.userProfile.data.name }}" />
         </md-card-avatar>
         <md-card-header-text>
-          <span class="md-title">{{ home.userProfile.data.name }}</span>
-          <span class="md-subhead">{{ home.userProfile.data.login }}</span>
+          <span class="md-title">{{ ::home.userProfile.data.name }}</span>
+          <span class="md-subhead">{{ ::home.userProfile.data.login }}</span>
         </md-card-header-text>
       </md-card-header>
 
@@ -28,8 +28,8 @@
         layout="row"
         layout-align="start center"
         ng-if="home.userProfile.data">
-        <md-button ng-href="{{ home.userProfile.data.html_url }}" target="_blank">GitHub</md-button>
-        <md-button ng-href="{{ home.userProfile.data.blog }}" target="_blank">Blog</md-button>
+        <md-button ng-href="{{ ::home.userProfile.data.html_url }}" target="_blank">GitHub</md-button>
+        <md-button ng-href="{{ ::home.userProfile.data.blog }}" target="_blank">Blog</md-button>
       </md-card-actions>
 
       <div layout="row" layout-align="center" class="md-padding" ng-if="home.repos.loading">
@@ -46,20 +46,20 @@
         <md-list-item
           class="md-3-line"
           ng-repeat="repo in home.repos.data | filter: home.search:false"
-          ng-href="{{ repo.html_url }}"
+          ng-href="{{ ::repo.html_url }}"
           target="_blank">
           <div class="md-list-item-text" layout="column">
-            <h3>{{ repo.name }}</h3>
-            <h4>{{ repo.owner.login }}</h4>
+            <h3>{{ ::repo.name }}</h3>
+            <h4>{{ ::repo.owner.login }}</h4>
             <span>
               <span>
-                <strong>{{ repo.language || 'Indefinido' }}</strong> |
+                <strong>{{ ::repo.language || 'Indefinido' }}</strong> |
               </span>
               <span>
-                <strong>{{ repo.stargazers_count }}</strong> stars |
+                <strong>{{ ::repo.stargazers_count }}</strong> stars |
               </span>
               <span>
-                <strong>{{ repo.forks_count }}</strong> forks
+                <strong>{{ ::repo.forks_count }}</strong> forks
               </span>
             </span>
           </div>
