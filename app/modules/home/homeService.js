@@ -19,11 +19,15 @@
 
     return {
       getUserRepos: getUserRepos,
-      getUser: getUser
+      getUserProfile: getUserProfile
     };
 
     function getUserRepos() {
       return $http.get(gitApiUrl + '/users/' + getUser() + '/repos');
+    }
+
+    function getUserProfile() {
+      return $http.get(gitApiUrl + '/users/' + getUser());
     }
 
     function getUser() {

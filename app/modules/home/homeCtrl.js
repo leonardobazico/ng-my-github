@@ -25,24 +25,50 @@
     /*jshint validthis: true */
     var home = this;
     home.search = { name: '' };
-    home.loading = true;
-    home.repos = [];
-    home.getUser = homeService.getUser;
+    home.repos = {
+      loading: true,
+      error: false,
+      data: []
+    };
+    home.userProfile = {
+      loading: true,
+      error: false,
+      data: null
+    };
 
     getRepos();
+    getUserProfile();
 
     function getRepos() {
-      home.loading = true;
+      home.repos.loading = true;
       homeService
         .getUserRepos()
-        .then(function onSuccess(res) {
-          home.repos = res.data || [];
+        .then(
+          function onSuccess(res) {
+            home.repos.data = res.data || [];
+            home.repos.loading = false;
+          },
+          function onError(res) {
+            home.repos.loading = false;
+            home.repos.error = res.data && res.data.message ? res.data.message : 'Não foi possível carregar a lista de repositórios. Favor tentar mais tarde!';
+          }
+        );
+    }
 
-          home.loading = false;
-        }, function onError(res) {
-          console.log('onError', res);
-          home.loading = false;
-        });
+    function getUserProfile() {
+      home.userProfile.loading = true;
+      homeService
+        .getUserProfile()
+        .then(
+          function onSuccess(res) {
+            home.userProfile.data = res.data || [];
+            home.userProfile.loading = false;
+          },
+          function onError(res) {
+            home.userProfile.loading = false;
+            home.userProfile.error = 'Não foi possível carregar os dados do usuário. Favor tentar mais tarde!';
+          }
+        );
     }
   }
 
