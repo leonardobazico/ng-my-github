@@ -9,12 +9,12 @@
   },
   "scripts": {
     "start": "grunt",
-    "build": "grunt build",
     "test": "karma start karma.conf.js",
     "postinstall": "bower install --config.interactive=false",
     "surge": "cp ./www/index.html ./www/200.html && surge ./www --domain leonardobazico-github.surge.sh",
-    "dist": "npm run build",
-    "dist:surge": "npm run dist && npm run surge"
+    "dist": "grunt build",
+    "dist:surge": "npm run dist && npm run surge",
+    "dist:ghpages": "grunt build:ghpages"
   },
   "dependencies": {
     "bower": "~1.3.8",

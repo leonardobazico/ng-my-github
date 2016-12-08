@@ -86,7 +86,7 @@ module.exports = function (grunt) {
       build: {
         expand: true,
         cwd: 'src',
-        src: ['index.html'],
+        src: ['*.*'],
         dest: 'www/',
       }
     },
@@ -177,12 +177,27 @@ module.exports = function (grunt) {
         }
       },
       production: {
+        options: {
+          ignorePath: [ 'www', 'bower_components' ],
+          addRootSlash: false
+        },
         files: {
           'www/index.html': [
             'www/**/*.css',
             'www/**/*.js'
           ]
-
+        }
+      },
+      ghpages: {
+        options: {
+          ignorePath: [ 'www', 'bower_components' ],
+          prefix: '/<%= pkg.name %>/'
+        },
+        files: {
+          'www/index.html': [
+            'www/**/*.css',
+            'www/**/*.js'
+          ]
         }
       }
     },
@@ -224,6 +239,11 @@ module.exports = function (grunt) {
     'clean:nomin',
     'clean:libs',
     'injector:production'
+  ]);
+
+  grunt.registerTask('build:ghpages', [
+    'build',
+    'injector:ghpages'
   ]);
 
   grunt.registerTask('build:serve', [
