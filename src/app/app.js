@@ -13,7 +13,6 @@
   angular.module('ng-my-github', [
     'ngAria',
     'ngMaterial',
-    'ngMdIcons',
     'ui.router',
     'home',
   ]);
