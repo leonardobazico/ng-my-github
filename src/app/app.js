@@ -11,11 +11,9 @@
    */
 
   angular.module('ng-my-github', [
-    'ngResource',
     'ngAria',
     'ngMaterial',
     'ngMdIcons',
-    'ngMessages',
     'ui.router',
     'home',
   ]);

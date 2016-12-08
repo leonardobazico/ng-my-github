@@ -1,175 +1,241 @@
 // Grunt tasks
 
 module.exports = function (grunt) {
-	"use strict";
+  "use strict";
 
-	// Project configuration.
-	grunt.initConfig({
+  // Project configuration.
+  grunt.initConfig({
 
-		pkg: grunt.file.readJSON('package.json'),
-		banner: '/*!\n' +
-		'* <%= pkg.name %> - v<%= pkg.version %> - MIT LICENSE <%= grunt.template.today("yyyy-mm-dd") %>. \n' +
-		'* @author <%= pkg.author %>\n' +
-		'*/\n',
+    pkg: grunt.file.readJSON('package.json'),
+    banner: '/*!\n' +
+    '* <%= pkg.name %> - v<%= pkg.version %> - MIT LICENSE <%= grunt.template.today("yyyy-mm-dd") %>. \n' +
+    '* @author <%= pkg.author %>\n' +
+    '*/\n',
 
-		clean: {
-			dist: ['src']
-		},
+    clean: {
+      options: {
+        'force': true
+      },
+      dist: ['www'],
+      testjs: ['www/**/*test.js'],
+      nomin: [
+        'www/**/*.css',
+        'www/**/*.js',
+        '!www/**/*min.css',
+        '!www/**/*min.js'
+      ],
+      libs: ['www/app/assets/libs']
+    },
 
-		jshint: {
-			options: {
-				jshintrc: '.jshintrc'
-			},
-			gruntfile: {
-				src: 'Gruntfile.js'
-			},
-			app: {
-				src: ['app/modules/**/*.js']
-			}
-		},
+    jshint: {
+      options: {
+        jshintrc: '.jshintrc'
+      },
+      gruntfile: {
+        src: 'Gruntfile.js'
+      },
+      app: {
+        src: ['www/app/modules/**/*.js']
+      }
+    },
 
-		exec: {
-			bowerInstaller: 'bower-installer'
-		},
+    exec: {
+      bowerInstaller: 'bower-installer'
+    },
 
-		concat: {
-			options: {
-				banner: '<%= banner %>',
-				stripBanners: false
-			},
-			base: {
-				src: [
-					// Angular Project Dependencies,
-					'app/app.js',
-					'app/app.config.js',
-					'app/modules/**/*Module.js',
-					'app/modules/**/*Route.js',
-					'app/modules/**/*Ctrl.js',
-					'app/modules/**/*Service.js',
-					'app/modules/**/*Directive.js'
-				],
-				dest: 'app/assets/js/<%= pkg.name %>-appbundle.js'
-			},
-			build: {
-				src: [
-					// Angular Project Dependencies,
-					'app/assets/libs/angular/angular.js',
-					'app/assets/libs/**/*.js'
+    concat: {
+      options: {
+        banner: '<%= banner %>',
+        stripBanners: false
+      },
+      base: {
+        src: [
+          // Angular Project Dependencies,
+          'src/app/app.js',
+          'src/app/app.config.js',
+          'src/app/modules/**/*Module.js',
+          'src/app/modules/**/*Route.js',
+          'src/app/modules/**/*Ctrl.js',
+          'src/app/modules/**/*Service.js',
+          'src/app/modules/**/*Directive.js',
+          'www/**/templates.js'
+        ],
+        dest: 'www/app/assets/js/<%= pkg.name %>-<%= pkg.version %>-appbundle.js'
+      },
+      css: {
+        src: [ 'www/**/*.css' ],
+        dest: 'www/app/assets/css/<%= pkg.name %>-<%= pkg.version %>.min.css'
+      },
+      build: {
+        src: [
+          // Angular Project Dependencies,
+          'www/app/assets/libs/angular/angular.js',
+          'www/app/assets/libs/**/*.js'
 
-				],
-				dest: 'app/assets/js/<%= pkg.name %>-angularbundle.js'
-			}
-		},
+        ],
+        dest: 'www/app/assets/js/<%= pkg.name %>-<%= pkg.version %>-angularbundle.js'
+      }
+    },
 
-		uglify: {
-			options: {
-				banner: '<%= banner %>',
-				report: 'min'
-			},
-			base: {
-				src: ['<%= concat.base.dest %>'],
-				dest: 'app/assets/js/<%= pkg.name %>-angscript.min.js'
-			},
-			basePlugin: {
-				src: [ 'src/plugins/**/*.js' ],
-				dest: 'app/assets/js/plugins/',
-				expand: true,
-				flatten: true,
-				ext: '.min.js'
-			}
-		},
+    copy: {
+      dev: {
+        expand: true,
+        cwd: 'src',
+        src: '**',
+        dest: 'www/',
+      },
+      build: {
+        expand: true,
+        cwd: 'src',
+        src: ['index.html'],
+        dest: 'www/',
+      }
+    },
 
-		connect: {
-			server: {
-				options: {
-					keepalive: true,
-					port: 4000,
-					base: '.',
-					hostname: 'localhost',
-					debug: true,
-					livereload: true,
-					open: true
-				}
-			}
-		},
-		concurrent: {
-			tasks: ['connect', 'watch'],
-			options: {
-				logConcurrentOutput: true
-			}
-		},
+    bower: {
+      dev: {
+        options: {
+          expand: true
+        },
+        dest: 'www/'
+      },
+      build: {
+        options: {
+          expand: true,
+          ignorePackages: ['angular-mocks']
+        },
+        dest: 'www/app/assets/libs/'
+      }
+    },
 
-		watch: {
-			app: {
-				files: '<%= jshint.app.src %>',
-				tasks: ['jshint:app'],
-				options: {
-					livereload: true
-				}
-			}
-		},
+    uglify: {
+      options: {
+        banner: '<%= banner %>',
+        report: 'min'
+      },
+      all: {
+        src: ['<%= concat.build.dest %>', '<%= concat.base.dest %>'],
+        dest: 'www/app/assets/js/<%= pkg.name %>-<%= pkg.version %>-angscript.min.js'
+      }
+    },
 
-		injector: {
-			options: {},
-			dev: {
-				files: {
-					'index.html': [
-						'bower.json',
-						'app/app.js',
-						'app/app.config.js',
-						'app/**/*Module.js',
-						'app/**/*Route.js',
-						'app/**/*Ctrl.js',
-						'app/**/*Service.js',
-						'app/**/*Directive.js'
-					]
-				}
-			},
-			production: {
-				files: {
-					'index.html': [
-						'app/assets/css/**/*.css',
-						'app/assets/js/*.js'
-					]
+    cssmin: {
+      target: {
+        files: [{
+          expand: true,
+          cwd: 'www',
+          src: ['**/*.css', '!**/*.min.css'],
+          dest: 'www/',
+          ext: '.css'
+        }]
+      }
+    },
 
-				}
-			}
-		},
+    connect: {
+      server: {
+        options: {
+          keepalive: true,
+          port: 4000,
+          base: 'www',
+          hostname: 'localhost',
+          debug: true,
+          livereload: true,
+          open: true
+        }
+      }
+    },
+    concurrent: {
+      tasks: ['connect', 'watch'],
+      options: {
+        logConcurrentOutput: true
+      }
+    },
 
-		ngtemplates: {
-			app: {
-				src: 'app/modules/**/*.html',
-				dest: 'app/assets/js/templates.js',
-				options: {
-					module: '<%= pkg.name %>',
-					root: 'app/',
-					standAlone: false
-				}
-			}
-		}
+    watch: {
+      app: {
+        files: '<%= jshint.app.src %>',
+        tasks: ['jshint:app'],
+        options: {
+          livereload: true
+        }
+      }
+    },
+
+    injector: {
+      options: {
+        ignorePath: [ 'www', 'bower_components' ]
+      },
+      dev: {
+        files: {
+          'www/index.html': [
+            'bower.json',
+            'www/app/assets/css/*.css',
+            'www/app/app.js',
+            'www/app/app.config.js',
+            'www/app/modules/**/*.js'
+          ]
+        }
+      },
+      production: {
+        files: {
+          'www/index.html': [
+            'www/app/assets/css/**/*.css',
+            'www/app/assets/js/*.js'
+          ]
+
+        }
+      }
+    },
+
+    ngtemplates: {
+      app: {
+        cwd: 'src',
+        src: 'app/modules/**/*.html',
+        dest: 'www/app/assets/js/templates.js',
+        options: {
+          module: '<%= pkg.name %>',
+          root: 'app/',
+          standAlone: false
+        }
+      }
+    }
 
 
 
-	});
+  });
 
-	require('time-grunt')(grunt);
-	require('load-grunt-tasks')(grunt);
+  require('time-grunt')(grunt);
+  require('load-grunt-tasks')(grunt);
 
-	// Making grunt default to force in order not to break the project if something fail.
-	grunt.option('force', true);
+  // Making grunt default to force in order not to break the project if something fail.
+  grunt.option('force', true);
 
-	// Register grunt tasks
-	grunt.registerTask("build", [
-		"jshint",
-		"exec",
-		"concat",
-		"ngtemplates",
-		"injector:production",
-		"concurrent",
-		"clean"
-	]);
+  // Register grunt tasks
+  grunt.registerTask('build', [
+    'clean',
+    'jshint',
+    // 'exec',
+    'copy:build',
+    'ngtemplates',
+    'bower:build',
+    'cssmin',
+    'concat',
+    'uglify',
+    'clean:nomin',
+    'clean:libs',
+    'injector:production',
+    'concurrent',
+    // 'clean'
+  ]);
 
-	// Development task(s).
-	grunt.registerTask('dev', ['injector:dev', 'concurrent']);
+  // Development task(s).
+  grunt.registerTask('dev', [
+    'clean',
+    'copy:dev',
+    'bower:dev',
+    'clean:testjs',
+    'injector:dev',
+    'concurrent'
+  ]);
 
 };
