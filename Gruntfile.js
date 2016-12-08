@@ -60,20 +60,19 @@ module.exports = function (grunt) {
           'src/app/modules/**/*Directive.js',
           'www/**/templates.js'
         ],
-        dest: 'www/app/assets/js/<%= pkg.name %>-<%= pkg.version %>-appbundle.js'
+        dest: 'www/<%= pkg.name %>-<%= pkg.version %>-appbundle.js'
       },
       css: {
         src: [ 'www/**/*.css' ],
-        dest: 'www/app/assets/css/<%= pkg.name %>-<%= pkg.version %>.min.css'
+        dest: 'www/<%= pkg.name %>-<%= pkg.version %>.min.css'
       },
       build: {
         src: [
           // Angular Project Dependencies,
           'www/app/assets/libs/angular/angular.js',
           'www/app/assets/libs/**/*.js'
-
         ],
-        dest: 'www/app/assets/js/<%= pkg.name %>-<%= pkg.version %>-angularbundle.js'
+        dest: 'www/<%= pkg.name %>-<%= pkg.version %>-angularbundle.js'
       }
     },
 
@@ -115,7 +114,7 @@ module.exports = function (grunt) {
       },
       all: {
         src: ['<%= concat.build.dest %>', '<%= concat.base.dest %>'],
-        dest: 'www/app/assets/js/<%= pkg.name %>-<%= pkg.version %>-angscript.min.js'
+        dest: 'www/<%= pkg.name %>-<%= pkg.version %>-angscript.min.js'
       }
     },
 
@@ -163,7 +162,8 @@ module.exports = function (grunt) {
 
     injector: {
       options: {
-        ignorePath: [ 'www', 'bower_components' ]
+        ignorePath: [ 'www', 'bower_components' ],
+        addRootSlash: false
       },
       dev: {
         files: {
@@ -179,8 +179,8 @@ module.exports = function (grunt) {
       production: {
         files: {
           'www/index.html': [
-            'www/app/assets/css/**/*.css',
-            'www/app/assets/js/*.js'
+            'www/**/*.css',
+            'www/**/*.js'
           ]
 
         }
@@ -214,7 +214,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean',
     'jshint',
-    // 'exec',
+    'exec',
     'copy:build',
     'ngtemplates',
     'bower:build',
